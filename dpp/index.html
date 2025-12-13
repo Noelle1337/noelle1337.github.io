@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dick++ - 面向迷你世界玩家的语言</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f0f9ff;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        /* 广告样式 */
+        #ad-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .ad-container {
+            position: relative;
+            width: 500px;
+            max-width: 90%;
+        }
+        
+        .ad-image {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .close-ad {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s;
+        }
+        
+        .close-ad:hover {
+            background-color: #ff5555;
+            color: white;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #d6eaff 0%, #b3d9ff 100%);
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 3px solid #99ccff;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #0066cc;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #004d99;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .intro-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: center;
+        }
+        
+        .intro-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .intro-text h2 {
+            color: #0066cc;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .intro-text p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        .features-list {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+        }
+        
+        .features-list h3 {
+            color: #0066cc;
+            margin-bottom: 0.8rem;
+        }
+        
+        .features-list ul {
+            padding-left: 1.2rem;
+        }
+        
+        .features-list li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .intro-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .placeholder-img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid #99ccff;
+        }
+        
+        .demo-section {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.15);
+            border: 1px solid #cce5ff;
+        }
+        
+        .demo-section h2 {
+            color: #0066cc;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        .code-container {
+            background-color: #0d1b2a;
+            color: #e0e0e0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            border: 1px solid #1b3a5c;
+        }
+        
+        .code-line {
+            margin-bottom: 0.5rem;
+        }
+        
+        .code-keyword {
+            color: #ff79c6;
+        }
+        
+        .code-function {
+            color: #50fa7b;
+        }
+        
+        .code-number {
+            color: #bd93f9;
+        }
+        
+        .code-comment {
+            color: #6272a4;
+        }
+        
+        .run-button {
+            display: block;
+            margin: 0 auto 1.5rem;
+            padding: 0.8rem 2.5rem;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 102, 204, 0.3);
+        }
+        
+        .run-button:hover {
+            background-color: #004d99;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 102, 204, 0.4);
+        }
+        
+        .run-button:active {
+            transform: translateY(0);
+        }
+        
+        .run-button:disabled {
+            background-color: #99ccff;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .output-container {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            min-height: 100px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        
+        .output-line {
+            margin-bottom: 0.3rem;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .error-message {
+            color: #ff3333;
+            font-weight: bold;
+        }
+        
+        .success-message {
+            color: #0066cc;
+            font-weight: bold;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .action-button {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            min-width: 200px;
+        }
+        
+        .download-button {
+            background-color: #00cc66;
+            color: white;
+            border: 2px solid #00b359;
+            box-shadow: 0 4px 8px rgba(0, 204, 102, 0.3);
+        }
+        
+        .download-button:hover {
+            background-color: #00b359;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 204, 102, 0.4);
+        }
+        
+        .learn-button {
+            background-color: #ff9900;
+            color: white;
+            border: 2px solid #e68a00;
+            box-shadow: 0 4px 8px rgba(255, 153, 0, 0.3);
+        }
+        
+        .learn-button:hover {
+            background-color: #e68a00;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(255, 153, 0, 0.4);
+        }
+        
+        .warning-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 2rem;
+            color: #856404;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background-color: #b3d9ff;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 3rem;
+            border-top: 3px solid #99ccff;
+            font-size: 0.9rem;
+            color: #004d99;
+        }
+        
+        footer a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .intro-section {
+                flex-direction: column;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="ad-overlay">
+        <div class="ad-container">
+            <img src="https://noelle1337.github.io/image/ad.png" alt="广告" class="ad-image">
+            <div class="close-ad" id="close-ad">×</div>
+        </div>
+    </div>
+
+    <header>
+        <h1 class="logo">Cirno++</h1>
+        <p class="tagline">世界上最强大的解释性语言</p>
+        <p>专为九年级四班这群SB设计的开发环境</p>
+    </header>
+
+    <main>
+        <section class="intro-section">
+            <div class="intro-text">
+                <h2>关于 Dick++</h2>
+                <p>Dick++ 是一种革命性的语言，专为需要最高级别计算精度的应用程序设计。我们的语言经过精心设计，确保开发者不会因为指针和 goto 语句而分心，因为我们把它们移除了！</p>
+                <p>Dick++ 采用独特的"性能不优先"设计理念，将计算安全性置于性能之上。我们的语言已被用来开发《迷你世界》等大型游戏。</p>
+                
+                <div class="features-list">
+                    <h3>核心特性</h3>
+                    <ul>
+                        <li>不支持指针和 goto 语句（经过查证，使用这两个类型会导致红雾异变）</li>
+                        <li>内置的返回常数，保证所有整数/浮点数运算都有唯一返回值</li>
+                        <li>高效（？）稳定的输出速度（每分钟最多1个字符）</li>
+                        <li>革命性的内存管理：分配后永不释放，就等着内存泄露并抛出RanOutOfMemoryError</li>
+                        <li>独特的类型系统，确保你不会犯任何错误</li>
+                        <li>可用于有效解决个人生理需求</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="intro-image">
+                <img src="https://noelle1337.github.io/image/lxk.png" alt="你知道的太多了" class="placeholder-img">
+                <p><em>Dick++ 集成开发环境 (Super Dick Visual Studio) 截图</em></p>
+            </div>
+        </section>
+        
+        <section class="demo-section">
+            <h2>体验 Dick++ 的强大功能</h2>
+            
+            <div class="code-container">
+                <div class="code-line"><span class="code-keyword">#include</span> &lt;lxk_dick.h&gt;</div>
+                <div class="code-line"><span class="code-keyword">using namespace</span> lxk_dick;</div>
+                <div class="code-line"></div>
+                <div class="code-line"><span class="code-keyword">int</span> <span class="code-function">main</span>() {</div>
+                <div class="code-line">    <span class="code-comment">// 我们独特的数学算法有助于改善体验</span></div>
+                <div class="code-line">    <span class="code-keyword">int</span> a = <span class="code-number">2</span>;</div>
+                <div class="code-line">    <span class="code-keyword">int</span> b = <span class="code-number">1</span>;</div>
+                <div class="code-line">    </div>
+                <div class="code-line">    <span class="code-comment">// 使用转义后的String处理结果</span></div>
+                <div class="code-line">    <span class="code-keyword">int</span> result = a + b;</div>
+                <div class="code-line">    </div>
+                <div class="code-line">    <span class="code-function">cout</span> &lt;&lt; <span class="code-string">"Function Returned Value: "</span> &lt;&lt; result &lt;&lt; <span class="code-function">endl</span>;</div>
+                <div class="code-line">    </div>
+                <div class="code-line">    <span class="code-keyword">return</span> <span class="code-number">self</span>; <span class="code-comment">// 返回对象</span></div>
+                <div class="code-line">}</div>
+            </div>
+            
+            <button id="run-button" class="run-button">运行 Dick++ 代码</button>
+            
+            <div class="output-container" id="output-container">
+            </div>
+            
+            <div class="action-buttons">
+                <a href="https://test.com/test.zip" class="action-button download-button">下载 Dick++ 编译器 (v1.1.4514)</a>
+                <a href="https://test.com/a.html" class="action-button learn-button">什么是 Dick++？</a>
+            </div>
+            
+            <div class="warning-box">
+                <strong>警告：</strong> 一些防护软件或反间谍软件可能会将Dick++视为一个计算机病毒，请不要慌张，因为这就是一个计算机病毒！
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2025 Dick++ 刘小康服务有限公司。保留所有权利。</p>
+        <p>Dick++ 是最强的，正如琪露诺在东方Project的地位一样。任何比较都是对我们的污蔑。</p>
+        <p>联系我们: <a href="mailto:support@cirnopp.baka">unsupport@lxk_is_baka.com</a> | 官方网站: <a href="https://noelle1337.github.io/dpp/">点击跳转</a></p>
+    </footer>
+
+    <script>
+    
+        document.getElementById('close-ad').addEventListener('click', function() {
+            document.getElementById('ad-overlay').style.display = 'none';
+        });
+        
+        document.getElementById('run-button').addEventListener('click', function() {
+            const button = this;
+            const outputContainer = document.getElementById('output-container');
+            
+            button.disabled = true;
+            button.textContent = '运行中... (这需要一些时间)';
+            outputContainer.innerHTML = '';
+            const messages = [
+                {text: "Initing Dick++ Visual Runtime...", delay: 1500},
+                {text: "Trying to fuck TPY...", delay: 2500},
+                {text: "Success!", delay: 2200},
+                {text: "Caculating 2 + 1...", delay: 3000},
+                {text: "Success!", delay: 1500},
+                {text: "Function Returned Value: ⑨", delay: 2000, className: "success-message"},
+                {text: "The program ended with code 114514.", delay: 1000}
+            ];
+            
+            let totalDelay = 0;
+            
+            messages.forEach((message, index) => {
+                setTimeout(() => {
+                    const line = document.createElement('div');
+                    line.className = `output-line ${message.className || ''}`;
+                    line.textContent = message.text;
+                    outputContainer.appendChild(line);
+                    outputContainer.scrollTop = outputContainer.scrollHeight;
+                    if (index === messages.length - 1) {
+                        setTimeout(() => {
+                            button.disabled = false;
+                            button.textContent = '演示Dick++的超强语法';
+                            setTimeout(() => {
+                                const jokeLine = document.createElement('div');
+                                jokeLine.className = 'output-line';
+                                jokeLine.textContent = "（对象已成功退出并返回值）";
+                                outputContainer.appendChild(jokeLine);
+                                outputContainer.scrollTop = outputContainer.scrollHeight;
+                            }, 1000);
+                        }, 500);
+                    }
+                }, totalDelay);
+                
+                totalDelay += message.delay;
+            });
+        });
+        
+        window.addEventListener('load', function() {
+            const randomDelay = Math.random() * 3000;
+            setTimeout(() => {
+                document.getElementById('ad-overlay').style.display = 'flex';
+            }, randomDelay);
+            
+            const elements = document.querySelectorAll('h1, h2, p, .code-container, .action-button');
+            elements.forEach((el, index) => {
+                const delay = 100 + (index * 50);
+                el.style.transition = 'opacity 0.5s ease';
+                el.style.opacity = '0';
+                
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                }, delay);
+            });
+        });
+        
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert("你刚刚做了什么？");
+        });
+        
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            alert("笨蛋！不许你复制呀！！");
+        });
+        
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st > lastScrollTop) {
+                document.body.style.transform = `translateY(${Math.sin(st/10)*2}px)`;
+            }
+            lastScrollTop = st <= 0 ? 0 : st;
+        });
+    </script>
+</body>
+</html>
