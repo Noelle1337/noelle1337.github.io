@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zealous Java Yogurt - The Ultimate Yogurt You Can Get</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0 30px;
+            border-bottom: 3px dashed #ffcc00;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h1 {
+            color: #ff6600;
+            font-size: 3.2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 #ffeeaa;
+            letter-spacing: 1px;
+        }
+        
+        .tagline {
+            font-size: 1.4rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .yogurt-image {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(to bottom, #fff0c0, #ffcc66);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 8px solid #ff9900;
+            box-shadow: 0 0 20px rgba(255, 153, 0, 0.3);
+        }
+        
+        .yogurt-image i {
+            font-size: 4.5rem;
+            color: #cc6600;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 40px 0;
+            gap: 20px;
+        }
+        
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            background-color: #fff9e6;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #ffe066;
+            transition: transform 0.3s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature i {
+            font-size: 2.5rem;
+            color: #ff9900;
+            margin-bottom: 15px;
+        }
+        
+        .feature h3 {
+            color: #cc6600;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .testimonials {
+            background-color: #f0f7ff;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border-left: 5px solid #66ccff;
+        }
+        
+        .testimonial {
+            font-style: italic;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+        }
+        
+        .order-section {
+            background-color: #fff0e6;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 40px 0;
+            text-align: center;
+            border: 2px dashed #ff9966;
+        }
+        
+        .order-section h2 {
+            color: #ff6600;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+        
+        .order-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .flavor-select {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #ffcc99;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            background-color: white;
+        }
+        
+        .java-code-container {
+            display: none;
+            width: 100%;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .java-code-container h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            text-align: center;
+            background: linear-gradient(to right, #0066cc, #0099ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            padding: 10px;
+        }
+        
+        .java-code-wrapper {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid #444;
+            position: relative;
+        }
+        
+        .code-header {
+            background-color: #2d2d2d;
+            padding: 12px 20px;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #555;
+        }
+        
+        .file-name {
+            color: #cccccc;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+        }
+        
+        .code-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .code-action-btn {
+            background-color: #3c3c3c;
+            border: none;
+            color: #cccccc;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background-color 0.2s;
+        }
+        
+        .code-action-btn:hover {
+            background-color: #4c4c4c;
+        }
+        
+        .java-code {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 0.6;
+            overflow-x: auto;
+            white-space: pre;
+            max-height: 600px;
+            overflow-y: auto;
+            border: 1px solid #444;
+            counter-reset: line;
+        }
+        
+        .java-code::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        
+        .java-code::-webkit-scrollbar-track {
+            background: #2d2d2d;
+            border-radius: 6px;
+        }
+        
+        .java-code::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+        
+        .java-code::-webkit-scrollbar-thumb:hover {
+            background: #666;
+        }
+        
+        .java-code .line {
+            display: block;
+            min-height: 1.1em;
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .java-code .line::before {
+            counter-increment: line;
+            content: counter(line);
+            position: absolute;
+            left: 0;
+            width: 40px;
+            text-align: right;
+            padding-right: 10px;
+            color: #6a9955;
+            user-select: none;
+        }
+        
+        .java-code .comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+        
+        .java-code .keyword {
+            color: #569cd6;
+            font-weight: bold;
+        }
+        
+        .java-code .string {
+            color: #ce9178;
+        }
+        
+        .java-code .method {
+            color: #dcdcaa;
+        }
+        
+        .java-code .class {
+            color: #4ec9b0;
+        }
+        
+        .java-code .annotation {
+            color: #cccccc;
+        }
+        
+        .java-code .number {
+            color: #b5cea8;
+        }
+        
+        .java-code .constant {
+            color: #9cdcfe;
+        }
+        
+        .java-code .operator {
+            color: #d4d4d4;
+        }
+        
+        .java-code .bracket {
+            color: #ffd700;
+        }
+        
+        .code-hint {
+            display: none;
+            background: linear-gradient(to right, #e6f7ff, #f0f8ff);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 5px solid #0066cc;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.1);
+        }
+        
+        .code-hint i {
+            color: #0066cc;
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .code-note {
+            display: none;
+            background-color: #2d2d2d;
+            color: #cccccc;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            border-left: 3px solid #6a9955;
+        }
+        
+        .password-section {
+            display: none;
+            width: 100%;
+            margin-top: 30px;
+            text-align: center;
+            background-color: #f7fbff;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #aad4ff;
+        }
+        
+        .password-section h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .password-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 18px;
+            margin: 20px 0;
+            border: 3px solid #66ccff;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            background-color: white;
+            color: #0066cc;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(102, 204, 255, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .password-input:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 5px 20px rgba(0, 102, 204, 0.3);
+        }
+        
+        .password-button {
+            background: linear-gradient(to bottom, #66ccff, #0066cc);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+        }
+        
+        .password-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
+            background: linear-gradient(to bottom, #88ddff, #0088ff);
+        }
+        
+        .password-button:active {
+            transform: translateY(1px);
+        }
+        
+        .order-button {
+            background: linear-gradient(to bottom, #ff9966, #ff6600);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .order-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 102, 0, 0.4);
+            background: linear-gradient(to bottom, #ffaa77, #ff7733);
+        }
+        
+        .order-button:active {
+            transform: translateY(1px);
+        }
+        
+        .hidden-message {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #ffebee;
+            color: #d32f2f;
+            border-radius: 8px;
+            border: 2px solid #ffcdd2;
+            font-weight: bold;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px dashed #cccccc;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .java-note {
+            display: inline-block;
+            background-color: #e6f7ff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin: 15px 0;
+            color: #0066cc;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features {
+                flex-direction: column;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .java-code {
+                font-size: 0.85rem;
+                max-height: 500px;
+            }
+            
+            .order-button, .password-button {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        .blink {
+            animation: blink 2s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.7; }
+        }
+        
+        .disclaimer {
+            font-size: 0.8rem;
+            color: #999;
+            text-align: center;
+            margin-top: 30px;
+            line-height: 1.4;
+        }
+        
+        .highlight {
+            background-color: #fffacd;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #cc6600;
+        }
+        
+        .button-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="yogurt-image">
+                <i class="fas fa-blender"></i>
+            </div>
+            <h1>Zealous Java Yogurt</h1>
+            <p class="tagline">The only yogurt that codes while you crunch!</p>
+            <p>For developers who want to debug their breakfast</p>
+        </header>
+        
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-bolt"></i>
+                <h3>Caffeinated & Creamy</h3>
+                <p>Each cup contains the equivalent of 2 shots of espresso, so you can code through the night!</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-code"></i>
+                <h3>Syntax-error Free</h3>
+                <p>Our yogurt is compiled, tested, and deployed with zero bugs. Can't say the same about your code!</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-heart"></i>
+                <h3>Gut-Friendly Probiotics</h3>
+                <p>Contains 10 billion CFUs of Lactobacillus codeicus to keep your digestive system running smoothly.</p>
+            </div>
+        </div>
+        
+        <div class="testimonials">
+            <h2 style="color: #3399ff; text-align: center; margin-bottom: 20px;">What Developers Say</h2>
+            <div class="testimonial">
+                <p>"I replaced my morning coffee with ZJY and now I compile 114.514% faster! My cat also seems to respect me more."</p>
+                <p style="text-align: right; font-weight: bold; color: #3399ff;">- Alice King, Full Stack Developer</p>
+            </div>
+            <div class="testimonial">
+                <p>"After eating ZJY, I finally find the meaning of the life and the importance of coding. However, I want to play Minecraft."</p>
+                <p style="text-align: right; font-weight: bold; color: #3399ff;">- Noelle Holiday, The Greatest Hakurei Reimu Fan</p>
+            </div>
+        </div>
+        
+        <div class="order-section">
+            <h2>Get Your Own ZJY!</h2>
+            <p style="margin-bottom: 25px; font-size: 1.1rem;">Select your flavor and place your order. Supplies are extremely limited!</p>
+            
+            <form class="order-form" id="orderForm">
+                <select class="flavor-select" id="flavorSelect">
+                    <option value="" disabled selected>What kind of ZJY do you love best...?</option>
+                    <option value="javaccino">Javaccino - Coffee with chocolate chunks</option>
+                    <option value="debugberry">Debugberry - Mixed berries with extra antioxidants</option>
+                    <option value="vanicript">Vanicript - Vanilla with encrypted script essence</option>
+                    <option value="null-nut">Null Nut - Pistachio with a hint of caramel</option>
+                    <option value="stack-vanilla">Stack Overflow Rose - Classic with extra memory</option>
+                </select>
+                
+                <div class="java-code-container" id="javaCodeContainer">
+                    <h3><i class="fas fa-lock"></i> Vanicript Decryption Protocol</h3>
+                    
+                    <div class="java-code-wrapper">
+                        <div class="code-header">
+                            <div class="file-name">VanicriptDecoder.java</div>
+                            <div class="code-actions">
+                                <button type="button" class="code-action-btn" id="copyCodeBtn">Copy Code</button>
+                                <button type="button" class="code-action-btn" id="downloadCodeBtn">Download</button>
+                            </div>
+                        </div>
+                        
+                        <pre class="java-code" id="javaCode"><span class="line"><span class="keyword">import</span> java.util.*;</span>
+<span class="line"></span>
+<span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="class">VanicriptDecoder</span> {</span>
+<span class="line">    </span>
+<span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class">String</span> <span class="method">decodeMethod1</span>(<span class="class">String</span> input) {</span>
+<span class="line">        <span class="class">StringBuilder</span> sb = <span class="keyword">new</span> <span class="class">StringBuilder</span>();</span>
+<span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c : input.toCharArray()) {</span>
+<span class="line">            sb.append((<span class="keyword">char</span>)(c + <span class="number">3</span>)).append((<span class="keyword">char</span>)(c - <span class="number">2</span>));</span>
+<span class="line">        }</span>
+<span class="line">        <span class="keyword">return</span> sb.toString();</span>
+<span class="line">    }</span>
+<span class="line">    </span>
+<span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class">String</span> <span class="method">rotateMethod</span>(<span class="class">String</span> str, <span class="keyword">int</span> shift) {</span>
+<span class="line">        shift = shift % str.length();</span>
+<span class="line">        <span class="keyword">return</span> str.substring(shift) + str.substring(<span class="number">0</span>, shift);</span>
+<span class="line">    }</span>
+<span class="line">    </span>
+<span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class">String</span> <span class="method">xorMethod</span>(<span class="class">String</span> input, <span class="keyword">int</span> key) {</span>
+<span class="line">        <span class="keyword">char</span>[] chars = input.toCharArray();</span>
+<span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chars.length; i++) {</span>
+<span class="line">            chars[i] = (<span class="keyword">char</span>) (chars[i] ^ key);</span>
+<span class="line">        }</span>
+<span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="class">String</span>(chars);</span>
+<span class="line">    }</span>
+<span class="line">    </span>
+<span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class">String</span> <span class="method">getString1</span>() {</span>
+<span class="line">        <span class="keyword">return</span> <span class="string">"zjyisnotaguywholikesemilia"</span>;</span>
+<span class="line">    }</span>
+<span class="line">    </span>
+<span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class">String</span> <span class="method">getString2</span>() {</span>
+<span class="line">        <span class="keyword">return</span> <span class="string">"patchouliisnotaknowledgefriend"</span>;</span>
+<span class="line">    }</span>
+<span class="line">    </span>
+<span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class">String</span> <span class="method">generatePassword</span>() {</span>
+<span class="line">        <span class="class">String</span>[] parts = {</span>
+<span class="line">            <span class="string">"withpatchouli"</span>,</span>
+<span class="line">            <span class="string">"zjyisaguywho"</span>,</span>
+<span class="line">            <span class="string">"knowledge"</span>,</span>
+<span class="line">            <span class="string">"madeafriend"</span></span>
+<span class="line">        };</span>
+<span class="line">        </span>
+<span class="line">        <span class="class">StringBuilder</span> result = <span class="keyword">new</span> <span class="class">StringBuilder</span>();</span>
+<span class="line">        result.append(parts[<span class="number">1</span>]);</span>
+<span class="line">        result.append(parts[<span class="number">3</span>]);</span>
+<span class="line">        result.append(parts[<span class="number">0</span>]);</span>
+<span class="line">        result.append(parts[<span class="number">2</span>]);</span>
+<span class="line">        </span>
+<span class="line">        <span class="class">String</span> encoded = <span class="method">xorMethod</span>(result.toString(), <span class="number">42</span>);</span>
+<span class="line">        <span class="keyword">return</span> <span class="method">xorMethod</span>(encoded, <span class="number">42</span>);</span>
+<span class="line">    }</span>
+<span class="line">    </span>
+<span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="method">main</span>(<span class="class">String</span>[] args) {</span>
+<span class="line">        <span class="class">String</span> unused1 = <span class="method">decodeMethod1</span>(<span class="string">"distraction"</span>);</span>
+<span class="line">        <span class="class">String</span> unused2 = <span class="method">rotateMethod</span>(<span class="string">"fake"</span>, <span class="number">3</span>);</span>
+<span class="line">        <span class="class">String</span> unused3 = <span class="method">getString1</span>();</span>
+<span class="line">        <span class="class">String</span> unused4 = <span class="method">getString2</span>();</span>
+<span class="line">        </span>
+<span class="line">        <span class="class">System</span>.out.print(<span class="method">generatePassword</span>());</span>
+<span class="line">    }</span>
+<span class="line">}</span></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="code-hint" id="codeHint">
+                        <i class="fas fa-exclamation-circle"></i> <span class="highlight">Important:</span> Copy this Java code, save it as <span class="highlight">VanicriptDecoder.java</span>, compile and run it on your computer to get the secret password. Only the password will be printed to the console (no extra text).
+                    </div>
+                    
+                    <div class="code-note" id="codeNote">
+                        <i class="fas fa-info-circle"></i> Note: This code contains distraction methods and misleading strings. Only the actual password output matters.
+                    </div>
+                </div>
+                
+                <div class="password-section" id="passwordSection">
+                    <h3><i class="fas fa-key"></i> Enter Vanicript Access Code</h3>
+                    <p>Run the Java code above to obtain the password, then enter it below:</p>
+                    <input type="text" class="password-input" id="passwordInput" placeholder="Enter the password obtained from running the Java code...">
+                    <button type="button" class="password-button" id="passwordButton">
+                        <i class="fas fa-unlock-alt"></i> VERIFY & ORDER VANICRIPT YOGURT
+                    </button>
+                    <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">The password is case-sensitive and must match exactly what the Java program outputs.</p>
+                </div>
+                
+                <div class="button-container">
+                    <button type="button" class="order-button blink" id="orderButton">
+                        <i class="fas fa-shopping-cart"></i> ORDER ZEALOUS YOGURT
+                    </button>
+                </div>
+                
+                <div class="hidden-message" id="outOfStockMessage">
+                    <i class="fas fa-exclamation-triangle"></i> Zealous Java Yogurt has sold out! Try again earlier next time!
+                </div>
+            </form>
+        </div>
+        
+        <div class="java-note">
+            <i class="fab fa-java"></i> Made with 100% real Java beans (and actual yogurt) | Vanicript flavor requires password authentication
+        </div>
+        
+        <div class="disclaimer">
+            <p>Zealous Java Yogurt is a kind of yogurt. Buying it DO NOT mean you married ZJY. It's just yogurt. Just Monika.</p>
+        </div>
+        
+        <footer>
+            <p>© 2026 Zealous Java Yogurt Co. All rights reserved. | "Zealous Java Yogurt" has NO relations with Zhang Jiaying who is a student in No.60 Middle School.</p>
+            <p>Contact us: 2092533347@qq.com | 1-800-CODE-YOG</p>
+        </footer>
+    </div>
+
+    <script>
+        const CORRECT_PASSWORD = "zjyisaguywhomadeafriendwithpatchouliknowledge";
+        
+        document.getElementById('orderButton').addEventListener('click', function() {
+            const flavor = document.getElementById('flavorSelect').value;
+            const javaCodeContainer = document.getElementById('javaCodeContainer');
+            const passwordSection = document.getElementById('passwordSection');
+            const outOfStockMessage = document.getElementById('outOfStockMessage');
+            const codeHint = document.getElementById('codeHint');
+            const codeNote = document.getElementById('codeNote');
+            
+            
+            if (!flavor) {
+                alert("Please select a flavor first!");
+                return;
+            }
+            
+            
+            if (flavor === "vanicript") {
+                javaCodeContainer.style.display = 'block';
+                passwordSection.style.display = 'block';
+                outOfStockMessage.style.display = 'none';
+                
+                codeHint.style.display = 'block';
+                codeNote.style.display = 'block';
+                
+                javaCodeContainer.scrollIntoView({ behavior: 'smooth' });
+                
+                this.style.display = 'none';
+            } else {
+                outOfStockMessage.style.display = 'block';
+                javaCodeContainer.style.display = 'none';
+                passwordSection.style.display = 'none';
+                codeHint.style.display = 'none';
+                codeNote.style.display = 'none';
+                
+                this.style.display = 'block';
+            }
+        });
+        
+        document.getElementById('passwordButton').addEventListener('click', function() {
+            const passwordInput = document.getElementById('passwordInput').value;
+            
+            if (!passwordInput) {
+                alert("Please enter the password obtained from the Java code!");
+                return;
+            }
+            
+            if (passwordInput === CORRECT_PASSWORD) {
+                alert("PASSWORD PASSED! You will get your ZJY soon.");
+                
+                setTimeout(function() {
+                    window.location.href = "https://noelle1337.github.io/zjy/ZJY-VanicriptVer.class";
+                }, 500);
+            } else {
+                alert("Incorrect password! Make sure you ran the Java code correctly and entered the exact output (case-sensitive).");
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        });
+        
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('passwordButton').click();
+            }
+        });
+        
+        document.getElementById('copyCodeBtn').addEventListener('click', function(e) {
+            e.preventDefault(); 
+            e.stopPropagation(); 
+            
+            const codeElement = document.getElementById('javaCode');
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = codeElement.innerHTML;
+            
+            const lines = tempDiv.querySelectorAll('.line');
+            let codeText = '';
+            lines.forEach(line => {
+                const text = line.textContent || line.innerText;
+                codeText += text + '\n';
+            });
+            
+            navigator.clipboard.writeText(codeText).then(() => {
+                const originalText = this.textContent;
+                this.textContent = 'Copied!';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy code: ', err);
+                const textArea = document.createElement('textarea');
+                textArea.value = codeText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                const originalText = this.textContent;
+                this.textContent = 'Copied!';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 2000);
+            });
+        });
+        
+        document.getElementById('downloadCodeBtn').addEventListener('click', function(e) {
+            e.preventDefault(); 
+            e.stopPropagation(); 
+            
+            const codeElement = document.getElementById('javaCode');
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = codeElement.innerHTML;
+            
+            const lines = tempDiv.querySelectorAll('.line');
+            let codeText = '';
+            lines.forEach(line => {
+                const text = line.textContent || line.innerText;
+                codeText += text + '\n';
+            });
+            
+            const blob = new Blob([codeText], { type: 'text/x-java-source' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'VanicriptDecoder.java';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>
