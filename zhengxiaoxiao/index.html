@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>67</title>
+    <style>
+        /* 彻底重置所有内外边距，保证纯粹黑背景无任何干扰 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* html与body完全占满视口，纯黑背景 */
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: #000000;   /* 纯黑背景 */
+        }
+
+        body {
+            /* 弹性布局完美居中数字 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* 确保背景一致，无任何渐变或图像 */
+            background-color: #000000;
+            /* 禁用任何可能的边距或轮廓 */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 巨大白色数字容器 */
+        .giant-number {
+            /* 白色主体，视觉冲击力 */
+            color: #ffffff;
+            /* 使用适合巨大显示的无衬线字体，粗重有力 */
+            font-family: 'Arial Black', 'Impact', 'Helvetica Bold', 'Montserrat Black', 'Segoe UI Black', sans-serif;
+            font-weight: 900;
+            /* 根据视口短边动态调整大小，确保在任何屏幕上都极为巨大且完整可见 */
+            font-size: 70vmin;
+            /* 禁止换行，保持67一体展示 */
+            white-space: nowrap;
+            /* 严格的行高，去除额外占位空间，精确居中 */
+            line-height: 1;
+            /* 优化字体渲染，使白色数字清晰锐利 */
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            /* 防止用户误选中数字，无额外视觉元素影响 */
+            user-select: none;
+        }
+
+        /* 确保任何极端尺寸下背景和数字无异常，
+           无多余滚动装饰或多余内容，仅保留67数字 */
+        @media (max-width: 480px) {
+            .giant-number {
+                /* 在小屏幕仍保持巨大且避免超出太严重，70vmin已足够安全，
+                   此条仅为额外保险（可选，保持不变也无问题） */
+                font-size: 65vmin;
+            }
+        }
+
+        /* 对于超宽屏幕或异常比例，保证数字依然巨大霸占视觉，不做额外限制 */
+    </style>
+</head>
+<body>
+    <!-- 页面唯一内容：纯白色巨大数字 67，无任何其他元素、文字、装饰或图形 -->
+    <div class="giant-number" aria-label="67">67</div>
+</body>
+</html>
