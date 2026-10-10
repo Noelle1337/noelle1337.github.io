@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>注意事项 - Cracked By Noelle_1337</title>
+<style>
+  :root{
+    --text:#1f2328;
+    --muted:#6b7280;
+    --faint:#9ca3af;
+    --line:#ececec;
+    --line-soft:#f3f4f6;
+    --code-bg:#fafafa;
+    --accent:#2563eb;
+    --radius:8px;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  }
+
+  *{box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:#fff;
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:16px;
+    line-height:1.78;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  /* ---------- 阅读进度条 ---------- */
+  .progress{
+    position:fixed;top:0;left:0;height:2px;width:0;
+    background:var(--accent);z-index:99;
+    transition:width .08s linear;
+  }
+
+  /* ---------- 顶部导航 ---------- */
+  .site-head{border-bottom:1px solid var(--line-soft);}
+  .head-inner{
+    max-width:1100px;margin:0 auto;padding:0 24px;height:64px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .brand{
+    font-size:16px;font-weight:600;letter-spacing:-.01em;
+    color:var(--text);text-decoration:none;
+  }
+  .brand span{color:var(--faint);font-weight:400;}
+  .head-nav{display:flex;gap:22px;}
+  .head-nav a{
+    font-size:14px;color:var(--muted);text-decoration:none;
+    transition:color .15s;
+  }
+  .head-nav a:hover{color:var(--text);}
+
+  /* ---------- 布局 ---------- */
+  .wrap{
+    max-width:1100px;margin:0 auto;padding:0 24px;
+    display:grid;grid-template-columns:190px minmax(0,1fr);
+    gap:56px;
+  }
+
+  /* ---------- 文章头部 ---------- */
+  .post-head{padding:56px 0 8px;}
+  .tags{display:flex;gap:8px;margin-bottom:18px;}
+  .tags span{
+    font-size:12px;color:var(--muted);
+    border:1px solid var(--line);border-radius:999px;
+    padding:2px 10px;letter-spacing:.02em;
+  }
+  h1{
+    font-size:34px;line-height:1.35;letter-spacing:-.02em;
+    font-weight:600;margin:0 0 14px;
+  }
+  .sub{
+    font-size:16.5px;color:var(--muted);margin:0 0 22px;
+    line-height:1.7;
+  }
+  .meta{
+    font-size:13.5px;color:var(--faint);
+    padding-bottom:28px;border-bottom:1px solid var(--line-soft);
+  }
+
+  /* ---------- 目录 ---------- */
+  .toc{
+    position:sticky;top:32px;align-self:start;
+    padding-top:56px;font-size:13.5px;
+  }
+  .toc-title{
+    font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--faint);margin-bottom:12px;
+  }
+  .toc nav{display:flex;flex-direction:column;border-left:1px solid var(--line);}
+  .toc a{
+    color:var(--muted);text-decoration:none;
+    padding:5px 0 5px 14px;margin-left:-1px;
+    border-left:1px solid transparent;
+    transition:color .15s,border-color .15s;
+  }
+  .toc a:hover{color:var(--text);}
+  .toc a.active{color:var(--accent);border-left-color:var(--accent);}
+
+  /* ---------- 正文 ---------- */
+  article{padding-bottom:80px;min-width:0;}
+
+  h2{
+    font-size:22px;font-weight:600;letter-spacing:-.01em;
+    margin:56px 0 16px;padding-top:8px;
+    scroll-margin-top:40px;
+  }
+  h2:first-of-type{margin-top:36px;}
+
+  h3{
+    font-size:16.5px;font-weight:600;
+    margin:30px 0 8px;scroll-margin-top:40px;
+  }
+
+  p{margin:0 0 14px;}
+  article > p:first-of-type{margin-top:0;}
+
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;text-underline-offset:3px;}
+
+  ul{margin:0 0 16px;padding-left:22px;}
+  li{margin-bottom:6px;}
+  li::marker{color:var(--faint);}
+
+  strong{font-weight:600;}
+
+  /* 行内代码 */
+  code{
+    font-family:var(--mono);
+    font-size:.87em;
+    background:#f4f5f7;
+    color:#0b4a9e;
+    padding:2px 6px;
+    border-radius:4px;
+    white-space:nowrap;
+  }
+
+  /* 代码块 */
+  .code-block{
+    background:var(--code-bg);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    margin:14px 0 20px;
+    overflow:hidden;
+  }
+  .code-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:6px 8px 6px 14px;
+    border-bottom:1px solid var(--line);
+    font-family:var(--mono);font-size:11.5px;color:var(--faint);
+    letter-spacing:.04em;
+  }
+  .code-head button{
+    font-family:inherit;font-size:11.5px;
+    background:none;border:none;color:var(--faint);
+    cursor:pointer;padding:3px 8px;border-radius:5px;
+    transition:background .15s,color .15s;
+  }
+  .code-head button:hover{background:#efefef;color:var(--text);}
+
+  .code-block pre{
+    margin:0;padding:14px 16px;
+    overflow-x:auto;
+    font-family:var(--mono);
+    font-size:13.5px;line-height:1.75;
+  }
+  .code-block pre code{
+    background:none;color:var(--text);
+    padding:0;border-radius:0;white-space:pre;
+    font-size:inherit;
+  }
+  .c{color:var(--faint);}          /* 注释 */
+  .k{color:#0b4a9e;}               /* 关键字/命令 */
+
+  /* 提示块 */
+  .note{
+    border-left:2px solid #e5e7eb;
+    padding:2px 0 2px 16px;
+    margin:16px 0 20px;
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.75;
+  }
+  .note strong{color:var(--text);}
+
+  /* 表格 */
+  table{
+    width:100%;border-collapse:collapse;
+    margin:16px 0 24px;font-size:14.5px;
+  }
+  th,td{
+    text-align:left;padding:9px 12px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  th{
+    font-weight:500;color:var(--muted);
+    font-size:13px;letter-spacing:.02em;
+    border-bottom:1px solid var(--line);
+  }
+  td code{background:none;padding:0;color:var(--text);font-size:13px;}
+  tr:last-child td{border-bottom:none;}
+
+  /* 页脚 */
+  .site-foot{
+    border-top:1px solid var(--line-soft);
+    padding:32px 24px 48px;
+    text-align:center;
+    font-size:13.5px;color:var(--faint);
+  }
+
+  /* ---------- 响应式 ---------- */
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr;gap:0;}
+    .toc{display:none;}
+    .post-head{padding-top:40px;}
+    h1{font-size:27px;}
+    .head-nav{display:none;}
+    body{font-size:15.5px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<header class="site-head">
+  <div class="head-inner">
+    <a class="brand" href="#">Dev<span>Notes</span></a>
+    <nav class="head-nav">
+      <a href="#">首页</a>
+      <a href="https://github.com/Noelle_1337">关于</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ 目录 ============ -->
+  <aside class="toc">
+    <div class="toc-title">目录</div>
+    <nav id="toc-nav">
+      <a href="#intro">前言</a>
+      <a href="#connect">连接与设备管理</a>
+      <a href="#app">应用管理</a>
+      <a href="#file">文件传输</a>
+      <a href="#info">设备信息与设置</a>
+      <a href="#log">日志与调试</a>
+      <a href="#input">模拟输入操作</a>
+      <a href="#misc">重启与端口转发</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+  </aside>
+
+  <!-- ============ 正文 ============ -->
+  <article>
+
+    <div class="post-head">
+      <div class="tags">
+        <span>ZZIT</span>
+        <span>HarmonyOS</span>
+      </div>
+      <h1>注意事宜与后期维护</h1>
+      <p class="sub">你也不希望你拿到之后根本不知道怎么操作吧。</p>
+      <div class="meta">我忘词了，嗯对</div>
+    </div>
+
+    <!-- ---------- 简介 ---------- -->
+    <h2 id="intro">前言</h2>
+
+    <p>如果你看到了这里，那么恭喜你，你的设备几乎算是全面（或至少一半以上地）被破解了，为了避免一些错误导致把所有人都整死，所以请</p>
+
+    <ul>
+      <li><strong>First</strong>：请不要太猖，上课玩，前后夹击被抓了对谁都不好；</li>
+      <li><strong>Second</strong>：虽然该说不该说，玩归玩，学归学，最好不要天天抱着这个玩意玩玩玩玩玩玩，上课都不听了（点名批评WCX）；</li>
+      <li><strong>Finally</strong>：剩下随便，想干什么干什么，然后下面给你们点基础教学。</li>
+    </ul>
+
+    <p>通常来说，只要你已经能找到浏览器，那你就可以下任何你想要的东西了。这里我还是主要说一下用ADB维护（别问我为什么不用HDB，我也不知道那玩意咋用）。</p>
+
+    <h3>安装与准备</h3>
+
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code><span class="c"># macOS</span>
+brew install android-platform-tools
+
+<span class="c"># Windows / Linux：下载 platform-tools 压缩包，你可以在网上搜索，解压后把目录加入 PATH</span>
+
+<span class="c"># 验证</span>
+adb version</code></pre>
+    </div>
+
+    <p>平板默认开启调试，如果没有，需要先打开调试开关：<strong>设置 → 关于平板电脑 → 连续点击「版本号」7 次</strong>，回到系统与更新，进入「开发人员选项」，打开 <strong>USB 调试</strong>。连接电脑后设备上会弹出 RSA 授权弹窗，勾选「一律允许」并确定。</p>
+
+    <!-- ---------- 连接 ---------- -->
+    <h2 id="connect">连接与设备管理</h2>
+
+    <p>最常用的命令是 <code>adb devices</code>，它会列出当前已连接的所有设备。</p>
+
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code>adb devices            <span class="c"># 列出设备</span>
+adb devices -l         <span class="c"># 附带型号、传输方式等详细信息</span>
+
+adb kill-server        <span class="c"># 关闭 server</span>
+adb start-server       <span class="c"># 启动 server</span></code></pre>
+    </div>
+
+    <p>输出中状态为 <code>device</code> 表示正常，<code>unauthorized</code> 表示还没授权，<code>offline</code> 表示连接异常。</p>
+
+    <!-- ---------- 应用管理 ---------- -->
+    <h2 id="app">应用管理</h2>
+
+    <h3>安装与卸载</h3>
+
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code>adb install app.apk              <span class="c"># 安装</span>
+adb install -r app.apk           <span class="c"># 覆盖安装，保留数据</span>
+adb install -d app.apk           <span class="c"># 允许版本降级</span>
+adb install -g app.apk           <span class="c"># 安装时直接授予所有运行时权限</span>
+adb install -t app.apk           <span class="c"># 允许安装 test 包</span>
+adb install-multiple a.apk b.apk <span class="c"># 分包安装（App Bundle 拆出的 APK）</span>
+
+adb uninstall com.example.app        <span class="c"># 卸载</span>
+adb uninstall -k com.example.app     <span class="c"># 卸载但保留数据和缓存</span></code></pre>
+    </div>
+
+    <h3>查询已安装应用</h3>
+
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code>adb shell pm list packages        <span class="c"># 全部包名</span>
+adb shell pm list packages -3     <span class="c"># 仅第三方应用</span>
+adb shell pm list packages -s     <span class="c"># 仅系统应用</span>
+adb shell pm list packages -e     <span class="c"># 仅已启用</span>
+adb shell pm list packages -d     <span class="c"># 仅已禁用</span>
+
+adb shell pm list packages | grep example   <span class="c"># 按关键字过滤</span>
+adb shell pm path com.example.app           <span class="c"># 查看 APK 实际路径</span></code></pre>
+    </div>
+
+    <h3>清除数据与启动应用</h3>
+
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code><span class="c"># 清除应用全部数据（相当于「清除数据」按钮）</span>
+adb shell pm clear com.example.app
+
+<span class="c"># 启动指定 Activity</span>
+adb shell am start -n com.example.app/.MainActivity
+
+<span class="c"># -W 会等待启动完成并打印耗时，如果你能用上，那就会很有用</span>
+adb shell am start -W -n com.example.app/.MainActivity
+
+<span class="c"># 强制停止应用</span>
+adb shell am force-stop com.example.app
+
+<span class="c"># 用 Intent 打开一个网页</span>
+adb shell am start -a android.intent.action.VIEW -d "https://example.com"</code></pre>
+    </div>
+
+    <div class="note">
+      <strong>不知道 Activity 名字？</strong>先启动 App，然后执行
+      <code>adb shell dumpsys window | grep mCurrentFocus</code>，
+      就能看到当前处于前台的包名与 Activity。
+    </div>
+
+    <!-- ---------- 文件传输 ---------- -->
+    <h2 id="file">文件传输</h2>
+
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code><span class="c"># 电脑 → 设备</span>
+adb push ./local.txt /sdcard/Download/
+adb push ./myfolder /sdcard/Download/
+
+<span class="c"># 设备 → 电脑</span>
+adb pull /sdcard/Download/remote.txt ./
+adb pull /sdcard/DCIM/Camera ./photos
+
+<span class="c"># 在设备上操作文件</span>
+adb shell ls -l /sdcard/Download/
+adb shell rm /sdcard/Download/remote.txt
+adb shell mkdir -p /sdcard/test</code></pre>
+    </div>
+
+    <p>注意 <code>/sdcard</code> 是设备内部存储的挂载点，实际路径通常是 <code>/storage/emulated/0</code>，两者等价。</p>
+
+    <!-- ---------- 设备信息 ---------- -->
+    <h2 id="info">设备信息与系统设置</h2>
+
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code><span class="c"># 读取系统属性</span>
+adb shell getprop ro.product.model          <span class="c"># 机型</span>
+adb shell getprop ro.build.version.release  <span class="c"># Android 版本</span>
+adb shell getprop ro.build.version.sdk      <span class="c"># API Level</span>
+adb shell getprop | grep brand              <span class="c"># 模糊查找</span>
+
+<span class="c"># 屏幕分辨率与密度</span>
+adb shell wm size
+adb shell wm density
+adb shell wm size 1080x1920     <span class="c"># 临时修改（重启后恢复）</span>
+adb shell wm size reset         <span class="c"># 还原</span>
+
+<span class="c"># 电池状态</span>
+adb shell dumpsys battery
+adb shell dumpsys battery set level 20   <span class="c"># 模拟电量 20%</span>
+adb shell dumpsys battery reset
+
+<span class="c"># 存储与内存</span>
+adb shell df -h
+adb shell cat /proc/meminfo</code></pre>
+    </div>
+
+    <h3>修改系统设置</h3>
+
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code>adb shell settings get system screen_brightness
+adb shell settings put system screen_brightness 120
+
+adb shell settings get system screen_off_timeout
+adb shell settings put system screen_off_timeout 600000   <span class="c"># 10 分钟不熄屏</span></code></pre>
+    </div>
+
+    <p><code>settings</code> 支持 <code>system</code>、<code>secure</code>、<code>global</code> 三个命名空间，具体键名可以在 <code>adb shell settings list system</code> 的结果里找。</p>
+
+    <!-- ---------- 日志 ---------- -->
+    <h2 id="log">日志与调试</h2>
+
+    <h3>logcat</h3>
+
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code>adb logcat                       <span class="c"># 实时输出全部日志</span>
+adb logcat -c                    <span class="c"># 清空缓冲区</span>
+adb logcat -d                    <span class="c"># 输出后立即退出，不阻塞</span>
+adb logcat -v time               <span class="c"># 带时间戳</span>
+adb logcat -v threadtime         <span class="c"># 带时间、线程、PID</span>
+
+adb logcat *:E                   <span class="c"># 只看 Error 及以上</span>
+adb logcat -s MyTag              <span class="c"># 只看指定 TAG</span>
+adb logcat | grep example        <span class="c"># 用 grep 过滤</span>
+
+<span class="c"># 只看某个应用进程的日志</span>
+adb logcat --pid=$(adb shell pidof -s com.example.app)
+
+<span class="c"># 保存到文件</span>
+adb logcat -d > log.txt</code></pre>
+    </div>
+
+    <p>日志级别从低到高为 <code>V</code>(Verbose)、<code>D</code>(Debug)、<code>I</code>(Info)、<code>W</code>(Warn)、<code>E</code>(Error)、<code>F</code>(Fatal)。过滤语法是 <code>TAG:级别</code>，<code>*:E</code> 表示所有 TAG 的 Error 级别。</p>
+
+    <h3>截图与录屏</h3>
+
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code><span class="c"># 截图：先存到设备再拉回来</span>
+adb shell screencap -p /sdcard/s.png
+adb pull /sdcard/s.png .
+
+<span class="c"># 一步到位（Windows 下用 cmd 而非 PowerShell）</span>
+adb exec-out screencap -p > s.png
+
+<span class="c"># 录屏，Ctrl+C 结束</span>
+adb shell screenrecord /sdcard/demo.mp4
+adb shell screenrecord --time-limit 30 --size 720x1280 --bit-rate 4M /sdcard/demo.mp4</code></pre>
+    </div>
+
+    <h3>性能与状态抓取</h3>
+
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code>adb shell dumpsys activity top              <span class="c"># 当前界面层级信息</span>
+adb shell dumpsys meminfo com.example.app   <span class="c"># 内存占用</span>
+adb shell dumpsys gfxinfo com.example.app   <span class="c"># 渲染性能</span>
+
+adb bugreport ./bugreport.zip               <span class="c"># 完整系统诊断报告</span></code></pre>
+    </div>
+
+    <!-- ---------- 输入 ---------- -->
+    <h2 id="input">模拟输入操作</h2>
+
+    <p><code>input</code> 命令可以模拟触摸、按键和文本输入，适合做简单的自动化测试。</p>
+
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code><span class="c"># 文本输入（不支持中文，空格需写成 %s）</span>
+adb shell input text "hello%sWorld"
+
+<span class="c"># 按键</span>
+adb shell input keyevent 3      <span class="c"># HOME</span>
+adb shell input keyevent 4      <span class="c"># BACK</span>
+adb shell input keyevent 26     <span class="c"># 电源</span>
+adb shell input keyevent 224    <span class="c"># 唤醒屏幕</span>
+
+<span class="c"># 点击与滑动</span>
+adb shell input tap 500 1200
+adb shell input swipe 300 1000 300 300 300   <span class="c"># 上滑，耗时 300ms</span></code></pre>
+    </div>
+
+    <p>常用键值对照：</p>
+
+    <table>
+      <thead>
+        <tr><th>键值</th><th>含义</th><th>键值</th><th>含义</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>3</code></td><td>HOME</td><td><code>4</code></td><td>BACK</td></tr>
+        <tr><td><code>26</code></td><td>POWER</td><td><code>27</code></td><td>CAMERA</td></tr>
+        <tr><td><code>66</code></td><td>ENTER</td><td><code>67</code></td><td>DEL</td></tr>
+        <tr><td><code>82</code></td><td>MENU</td><td><code>187</code></td><td>APP_SWITCH</td></tr>
+      </tbody>
+    </table>
+
+    <!-- ---------- 其他 ---------- -->
+    <h2 id="misc">重启与端口转发</h2>
+
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code>adb reboot                    <span class="c"># 正常重启</span>
+adb reboot recovery           <span class="c"># 重启到 Recovery，然而事实上，对于HarmonyOS，你只会得到一个几乎没鸟用的eRecovery</span>
+adb reboot bootloader         <span class="c"># 重启到 Fastboot，不过几乎没命令能用</span>
+
+
+<span class="c"># 端口转发：把电脑端口映射到设备端口</span>
+adb forward tcp:8080 tcp:8080
+
+<span class="c"># 反向转发：把设备端口映射到电脑端口（真机调试本地服务常用）</span>
+adb reverse tcp:8080 tcp:8080</code></pre>
+    </div>
+
+    <!-- ---------- FAQ ---------- -->
+    <h2 id="faq">常见问题</h2>
+
+    <h3>设备显示 unauthorized</h3>
+    <p>说明 RSA 授权没有通过。拔掉数据线重新插一次，注意看设备屏幕上的授权弹窗；如果一直不弹，可以在开发者选项里「撤销 USB 调试授权」后重试。</p>
+
+    <h3>设备显示 offline</h3>
+    <p>通常是 server 状态错乱或数据线接触不良。先执行 <code>adb kill-server &amp;&amp; adb start-server</code>，再重新插拔；仍然不行就换一根线或换一个 USB 口。</p>
+
+    <h3>提示 more than one device/emulator</h3>
+    <p>同时连接了多台设备。用 <code>adb -s &lt;serial&gt;</code> 明确指定目标设备即可。</p>
+
+    <h3>adb: command not found</h3>
+    <p>platform-tools 没有加入环境变量 PATH。macOS/Linux 可以在 <code>~/.zshrc</code> 里追加 <code>export PATH=$PATH:~/Library/Android/sdk/platform-tools</code>，然后 <code>source ~/.zshrc</code>。</p>
+
+    <h3>input text 输入中文乱码</h3>
+    <p>ADB 自带的 <code>input text</code> 只支持 ASCII 字符。需要输入中文时，可以安装 ADBKeyboard 之类的输入法，再通过 <code>adb shell am broadcast</code> 发送文本。</p>
+
+    <div class="note" style="margin-top:36px;">
+      以上命令覆盖了绝大多数场景。真正遇到问题时，<code>adb --help</code> 与 <code>adb shell &lt;命令&gt; --help</code> 永远可以解决问题，什么？你说你看不懂英文，你可以问AI。
+    </div>
+
+  </article>
+</div>
+
+<footer class="site-foot">
+  © 以防你不知道，张嘉颖我喜欢你喵
+</footer>
+
+<script>
+  /* ---------- 代码复制 ---------- */
+  document.querySelectorAll('.code-block').forEach(function (block) {
+    var btn = block.querySelector('.copy');
+    var codeEl = block.querySelector('code');
+    if (!btn || !codeEl) return;
+
+    btn.addEventListener('click', function () {
+      var text = codeEl.innerText;
+      var done = function (label) {
+        btn.textContent = label;
+        setTimeout(function () { btn.textContent = '复制'; }, 1400);
+      };
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function () {
+          done('已复制');
+        }).catch(function () {
+          fallback(text, done);
+        });
+      } else {
+        fallback(text, done);
+      }
+    });
+  });
+
+  function fallback(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      done('已复制');
+    } catch (e) {
+      done('复制失败');
+    }
+    document.body.removeChild(ta);
+  }
+
+  /* ---------- 阅读进度条 ---------- */
+  var progress = document.getElementById('progress');
+  function updateProgress() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var ratio = h > 0 ? window.scrollY / h : 0;
+    progress.style.width = Math.min(ratio * 100, 100) + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  /* ---------- 目录高亮 ---------- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('#toc-nav a'));
+  var sections = links.map(function (a) {
+    return document.querySelector(a.getAttribute('href'));
+  }).filter(Boolean);
+
+  if ('IntersectionObserver' in window && sections.length) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var id = entry.target.id;
+        links.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      });
+    }, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
+
+    sections.forEach(function (s) { observer.observe(s); });
+  }
+</script>
+
+</body>
+</html>
